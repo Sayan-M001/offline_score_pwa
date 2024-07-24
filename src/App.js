@@ -10,7 +10,7 @@ export default function App() {
       setIsOnline(true);
       const data = JSON.parse(localStorage.getItem("offline_data"));
       if (data) {
-        makeApiCall();
+        makeApiCall(data);
       }
     };
 
@@ -28,7 +28,7 @@ export default function App() {
     };
   }, []);
 
-  const makeApiCall = async () => {
+  const makeApiCall = async (data) => {
     const URL = `https://new.compaksa.co.za/wp-json/gf/v2/forms/9/submissions`;
 
     console.log("data=> ", data);
