@@ -8,7 +8,10 @@ export default function App() {
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true);
-      makeApiCall();
+      const data = JSON.parse(localStorage.getItem("offline_data"));
+      if (data) {
+        makeApiCall();
+      }
     };
 
     const handleOffline = () => {
@@ -27,7 +30,7 @@ export default function App() {
 
   const makeApiCall = async () => {
     const URL = `https://new.compaksa.co.za/wp-json/gf/v2/forms/9/submissions`;
-    const data = JSON.parse(localStorage.getItem("offline_data"));
+
     console.log("data=> ", data);
     try {
       const response = await fetch(URL, {
