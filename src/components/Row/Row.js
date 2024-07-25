@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./Row.css";
 const Row = ({ playerId, playerData, setPlayers }) => {
   const handleInputChange = (playerId, rangeKey, value) => {
     setPlayers((prevPlayers) =>
@@ -12,30 +12,31 @@ const Row = ({ playerId, playerData, setPlayers }) => {
   };
   let rangeCounter = 1;
   return (
-    <div key={playerId}>
-      <h4>Player Name: {playerData[playerId]["player_name"]}</h4>
-      {Object.entries(playerData[playerId]).map(
-        ([rangeKey, rangeValue], idx) => (
-          <div key={rangeKey}>
-            {rangeKey !== "position" &&
-              rangeKey !== "Target" &&
-              rangeKey !== "player_name" &&
-              rangeKey !== "number" && (
-                <>
-                  <label>{rangeKey}</label>
-                  <label>Range{rangeCounter++}</label>
-                  <input
-                    type="text"
-                    value={rangeValue}
-                    onChange={(e) =>
-                      handleInputChange(playerId, rangeKey, e.target.value)
-                    }
-                  />
-                </>
-              )}
-          </div>
-        ),
-      )}
+    <div className="row" key={playerId}>
+      <h4>{playerData[playerId]["player_name"]}</h4>
+      <div className="fields_wrapper">
+        {Object.entries(playerData[playerId]).map(
+          ([rangeKey, rangeValue], idx) => (
+            <div className="field" key={rangeKey}>
+              {rangeKey !== "position" &&
+                rangeKey !== "Target" &&
+                rangeKey !== "player_name" &&
+                rangeKey !== "number" && (
+                  <>
+                    <label>Range{rangeCounter++}</label>
+                    <input
+                      type="text"
+                      value={rangeValue}
+                      onChange={(e) =>
+                        handleInputChange(playerId, rangeKey, e.target.value)
+                      }
+                    />
+                  </>
+                )}
+            </div>
+          ),
+        )}
+      </div>
     </div>
   );
 };

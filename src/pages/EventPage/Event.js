@@ -4,6 +4,7 @@ import { EventContext } from "../../context/Context";
 import Row from "../../components/Row/Row";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./Event.css";
 const Event = () => {
   const [event, setEvent] = useState(null);
   const [players, setPlayers] = useState([]);
@@ -47,8 +48,7 @@ const Event = () => {
   };
 
   return (
-    <div>
-      {event?.title}
+    <div className="container">
       {players.map(([playerId, playerData]) => (
         <Row
           key={playerId}
