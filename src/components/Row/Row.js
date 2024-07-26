@@ -30,6 +30,7 @@ const Row = ({ eventId, playerId, playerData, setPlayers }) => {
       }
       return event;
     });
+    console.log("updatedEvents =>", updatedEvents);
     localStorage.setItem("events", JSON.stringify(updatedEvents));
   };
   let rangeCounter = 1;
