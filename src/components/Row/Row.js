@@ -1,6 +1,6 @@
 import React from "react";
 import "./Row.css";
-const Row = ({ playerId, playerData, setPlayers }) => {
+const Row = ({ eventId, playerId, playerData, setPlayers }) => {
   const handleInputChange = (playerId, rangeKey, value) => {
     setPlayers((prevPlayers) =>
       prevPlayers.map(([id, data]) =>
@@ -9,6 +9,28 @@ const Row = ({ playerId, playerData, setPlayers }) => {
           : [id, data],
       ),
     );
+    const events = JSON.parse(localStorage.getItem("events")) || [];
+    const updatedEvents = events?.map((event) => {
+      if (event.ID == eventId) {
+        const updatedPerformance = { ...event.performance };
+        if (updatedPerformance[playerId]) {
+          updatedPerformance[playerId] = {
+            ...updatedPerformance[playerId],
+            [playerId]: {
+              ...updatedPerformance[playerId][playerId],
+              [rangeKey]: value,
+            },
+          };
+        }
+
+        return {
+          ...event,
+          performance: updatedPerformance,
+        };
+      }
+      return event;
+    });
+    localStorage.setItem("events", JSON.stringify(updatedEvents));
   };
   let rangeCounter = 1;
   return (

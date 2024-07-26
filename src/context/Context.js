@@ -8,6 +8,7 @@ export const EventContext = createContext(initialState);
 export const Provider = ({ children }) => {
   const [events, setEvents] = useState(initialState);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const handleOnline = () => {
@@ -33,6 +34,7 @@ export const Provider = ({ children }) => {
 
   const sendDataToServer = async (data) => {
     const URL = `https://new.compaksa.co.za/wp-json/sportspress/v2/sp_event/submit_performance`;
+
     try {
       let response = await fetch(URL, {
         method: "POST",
@@ -50,8 +52,8 @@ export const Provider = ({ children }) => {
           position: "top-right",
           autoClose: 4000,
         });
-
         localStorage.removeItem("offline_data");
+        get_event_datails();
       }
     } catch (error) {
       toast.error("Scores Uploaded Failed!", {
@@ -64,6 +66,7 @@ export const Provider = ({ children }) => {
 
   const get_event_datails = async () => {
     const URL = `https://new.compaksa.co.za/wp-json/sportspress/v2/sp_event/event_details`;
+    setIsLoading(true);
     try {
       let response = await fetch(URL);
 
@@ -75,6 +78,8 @@ export const Provider = ({ children }) => {
       }
     } catch (error) {
       console.log(error?.message);
+    } finally {
+      setIsLoading(false);
     }
   };
   const get_event_datails_by_ID = (ID) => {
@@ -89,6 +94,7 @@ export const Provider = ({ children }) => {
         events,
         get_event_datails_by_ID,
         isOnline,
+        isLoading,
       }}
     >
       {children}

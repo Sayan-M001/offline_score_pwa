@@ -1,6 +1,10 @@
 .container {
 }
 
+.text {
+  font-size: 21px;
+}
+
 .event_wrapper {
   display: flex;
   flex-direction: column;

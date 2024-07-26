@@ -52,6 +52,7 @@ const Event = () => {
       {players.map(([playerId, playerData]) => (
         <Row
           key={playerId}
+          eventId={ID}
           playerId={playerId}
           playerData={playerData}
           setPlayers={setPlayers}
