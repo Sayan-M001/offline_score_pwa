@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Row.css";
+import { EventContext } from "../../context/Context";
 const Row = ({ eventId, playerId, playerData, setPlayers }) => {
+  const { setEvents } = useContext(EventContext);
   const handleInputChange = (playerId, rangeKey, value) => {
     setPlayers((prevPlayers) =>
       prevPlayers.map(([id, data]) =>
@@ -31,6 +33,7 @@ const Row = ({ eventId, playerId, playerData, setPlayers }) => {
       return event;
     });
     console.log("updatedEvents =>", updatedEvents);
+    setEvents(updatedEvents);
     localStorage.setItem("events", JSON.stringify(updatedEvents));
   };
   let rangeCounter = 1;

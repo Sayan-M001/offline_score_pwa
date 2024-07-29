@@ -26,6 +26,10 @@ export const Provider = ({ children }) => {
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
 
+    if (isOnline) {
+      handleOnline();
+    }
+
     return () => {
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
@@ -82,6 +86,7 @@ export const Provider = ({ children }) => {
       setIsLoading(false);
     }
   };
+
   const get_event_datails_by_ID = (ID) => {
     const single_event = events?.find((event) => event["ID"] == ID);
     return single_event;
@@ -95,6 +100,7 @@ export const Provider = ({ children }) => {
         get_event_datails_by_ID,
         isOnline,
         isLoading,
+        setEvents,
       }}
     >
       {children}

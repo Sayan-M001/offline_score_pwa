@@ -49,7 +49,7 @@ const Event = () => {
 
   return (
     <div className="container">
-      {players.map(([playerId, playerData]) => (
+      {players?.map(([playerId, playerData]) => (
         <Row
           key={playerId}
           eventId={ID}
